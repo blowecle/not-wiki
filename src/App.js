@@ -3,20 +3,47 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [renderedContent, setRenderedContent] = useState(null);
+  const [randomPhoto, setRandomPhoto] = useState(null); // State for randomPhoto
+
+  const photoArray = [
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962725/bolt_anime_s4qc8z.png',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962726/IMG_0314_i88dxj.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962726/IMG_0324_v7ojyw.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962726/image0_dmufst.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962726/IMG_0390_k8adoo.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962726/IMG_0553_uar0fz.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962726/IMG_0525_cpzuci.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962727/IMG_1427_g4xi9f.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962727/IMG_1375_p3eg2r.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962727/IMG_1330_wh8bu7.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962727/IMG_1455_lhj3jo.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962727/IMG_0587_qz8lwz.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962727/IMG_0605_v2mgjq.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_1457_vmzyk7.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_1487_eylkys.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_1530_ifbvfk.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_9415_ukmioe.jpg'
+  ];
 
   useEffect(() => {
-    // Check if the random number is already stored in sessionStorage
     let randomNumber = sessionStorage.getItem('randomNumber');
+    let storedRandomPhoto = sessionStorage.getItem('randomPhoto');
 
     if (!randomNumber) {
-      // Generate a random number between 1 and 100
       randomNumber = Math.floor(Math.random() * 100) + 1;
-      // Store it in sessionStorage
       sessionStorage.setItem('randomNumber', randomNumber);
     }
 
-    // Determine the content to render based on the random number
-    randomNumber = parseInt(randomNumber, 10); // Ensure it's a number
+    if (!storedRandomPhoto) {
+      storedRandomPhoto = Math.floor(Math.random() * photoArray.length);
+      sessionStorage.setItem('randomPhoto', storedRandomPhoto);
+    }
+
+    randomNumber = parseInt(randomNumber, 10);
+    storedRandomPhoto = parseInt(storedRandomPhoto, 10);
+
+    setRandomPhoto(storedRandomPhoto); // Set the random photo in state
+
     if (randomNumber >= 1 && randomNumber <= 50) {
       setRenderedContent(<p>Holy shit, he's seething.</p>);
     } else if (randomNumber >= 51 && randomNumber <= 90) {
@@ -29,14 +56,14 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img 
-          src="https://res.cloudinary.com/dyjzfdguj/image/upload/v1727910793/IMG_0982_papgjo.jpg" 
-          className="App-logo" 
-          alt="logo" 
-        />
-        <p>
-          {renderedContent}
-        </p>
+        {randomPhoto !== null && ( // Check if randomPhoto is set
+          <img 
+            src={photoArray[randomPhoto]} 
+            className="App-logo" 
+            alt="logo" 
+          />
+        )}
+        <p>{renderedContent}</p>
         <p>This post has been fact-checked by true American patriots.</p>
       </header>
     </div>
