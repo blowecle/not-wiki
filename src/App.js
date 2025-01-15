@@ -22,7 +22,8 @@ function App() {
     'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_1457_vmzyk7.jpg',
     'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_1487_eylkys.jpg',
     'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_1530_ifbvfk.jpg',
-    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_9415_ukmioe.jpg'
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_9415_ukmioe.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736964098/image0_gdlyva.gif'
   ];
 
   // Utility functions for cookies
@@ -87,7 +88,9 @@ function App() {
             alt="logo" 
           />
         )}
-        <p>{renderedContent}</p>
+        {randomPhoto == photoArray.length - 1 ? (
+          <p>HOLY SHIT IS THAT SOARIN!?</p>
+        ) : <p>{renderedContent}</p>}
         <p>This post has been fact-checked by true American patriots.</p>
       </header>
     </div>
