@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [renderedContent, setRenderedContent] = useState(null);
-  const [randomPhoto, setRandomPhoto] = useState(null); // State for randomPhoto
+  const [randomPhoto, setRandomPhoto] = useState(null);
 
   const photoArray = [
     'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962725/bolt_anime_s4qc8z.png',
@@ -25,24 +25,48 @@ function App() {
     'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_9415_ukmioe.jpg'
   ];
 
+  // Utility functions for cookies
+  const setCookie = (name, value, minutes) => {
+    const expires = new Date(Date.now() + minutes * 60 * 1000).toUTCString();
+    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+  };
+
+  const getCookie = (name) => {
+    const cookieArr = document.cookie.split('; ');
+    for (let cookie of cookieArr) {
+      const [key, value] = cookie.split('=');
+      if (key === name) {
+        return value;
+      }
+    }
+    return null;
+  };
+
   useEffect(() => {
-    let randomNumber = sessionStorage.getItem('randomNumber');
-    let storedRandomPhoto = sessionStorage.getItem('randomPhoto');
+    const cookieData = getCookie('randomContent');
+    const now = Date.now();
+    let randomNumber, randomPhotoIndex;
 
-    if (!randomNumber) {
+    if (cookieData) {
+      const { timestamp, number, photoIndex } = JSON.parse(cookieData);
+      if (now - timestamp < 15 * 60 * 1000) {
+        randomNumber = number;
+        randomPhotoIndex = photoIndex;
+      }
+    }
+
+    if (!randomNumber || !randomPhotoIndex) {
       randomNumber = Math.floor(Math.random() * 100) + 1;
-      sessionStorage.setItem('randomNumber', randomNumber);
+      randomPhotoIndex = Math.floor(Math.random() * photoArray.length);
+      const cookieValue = JSON.stringify({
+        timestamp: now,
+        number: randomNumber,
+        photoIndex: randomPhotoIndex
+      });
+      setCookie('randomContent', cookieValue, 15);
     }
 
-    if (!storedRandomPhoto) {
-      storedRandomPhoto = Math.floor(Math.random() * photoArray.length);
-      sessionStorage.setItem('randomPhoto', storedRandomPhoto);
-    }
-
-    randomNumber = parseInt(randomNumber, 10);
-    storedRandomPhoto = parseInt(storedRandomPhoto, 10);
-
-    setRandomPhoto(storedRandomPhoto); // Set the random photo in state
+    setRandomPhoto(randomPhotoIndex);
 
     if (randomNumber >= 1 && randomNumber <= 50) {
       setRenderedContent(<p>Holy shit, he's seething.</p>);
@@ -51,12 +75,12 @@ function App() {
     } else if (randomNumber >= 91 && randomNumber <= 100) {
       setRenderedContent(<p>Wait, for once he isn't mad.</p>);
     }
-  }, []); // Run only once when the component mounts
+  }, []);
 
   return (
     <div className="App">
       <header className="App-header">
-        {randomPhoto !== null && ( // Check if randomPhoto is set
+        {randomPhoto !== null && (
           <img 
             src={photoArray[randomPhoto]} 
             className="App-logo" 
@@ -71,3 +95,4 @@ function App() {
 }
 
 export default App;
+
