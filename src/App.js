@@ -44,10 +44,10 @@ function App() {
   };
 
   useEffect(() => {
-    const cookieData = getCookie('randomContent');
     const now = Date.now();
     let randomNumber, randomPhotoIndex;
 
+    const cookieData = getCookie('randomContent');
     if (cookieData) {
       const { timestamp, number, photoIndex } = JSON.parse(cookieData);
       if (now - timestamp < 15 * 60 * 1000) {
@@ -56,7 +56,7 @@ function App() {
       }
     }
 
-    if (!randomNumber || !randomPhotoIndex) {
+    if (!randomNumber || !randomPhotoIndex || now - JSON.parse(cookieData)?.timestamp >= 15 * 60 * 1000) {
       randomNumber = Math.floor(Math.random() * 100) + 1;
       randomPhotoIndex = Math.floor(Math.random() * photoArray.length);
       const cookieValue = JSON.stringify({
@@ -88,9 +88,11 @@ function App() {
             alt="logo" 
           />
         )}
-        {randomPhoto == photoArray.length - 1 ? (
+        {randomPhoto === photoArray.length - 1 ? (
           <p>HOLY SHIT IS THAT SOARIN!?</p>
-        ) : <p>{renderedContent}</p>}
+        ) : (
+          <p>{renderedContent}</p>
+        )}
         <p>This post has been fact-checked by true American patriots.</p>
       </header>
     </div>
@@ -98,4 +100,3 @@ function App() {
 }
 
 export default App;
-
