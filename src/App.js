@@ -81,7 +81,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* {randomPhoto !== null && (
+        {randomPhoto !== null && (
           <img 
             src={photoArray[randomPhoto]} 
             className="App-logo" 
@@ -92,8 +92,8 @@ function App() {
           <p>HOLY SHIT IS THAT SOARIN!?</p>
         ) : (
           <p>{renderedContent}</p>
-        )} */}
-        <p>Shut the fuck up Lucas and deliver me my pizza.</p>
+        )}
+        <p>This post has been fact-checked by true American patriots.</p>
       </header>
     </div>
   );
