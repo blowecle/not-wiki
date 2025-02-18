@@ -91,10 +91,7 @@ function App() {
         )}
         {randomPhoto === photoArray.length - 1 ? (
           <p>HOLY SHIT IS THAT SOARIN!?</p>
-        ) : (
-          <p>{renderedContent}</p>
-        )}
-        {randomPhoto === photoArray.length - 2 ? (
+        ) : randomPhoto === photoArray.length - 2 ? (
           <p>FAKE FISH TUCKER</p>
         ) : (
           <p>{renderedContent}</p>
