@@ -23,6 +23,7 @@ function App() {
     'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_1487_eylkys.jpg',
     'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_1530_ifbvfk.jpg',
     'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736962728/IMG_9415_ukmioe.jpg',
+    'https://res.cloudinary.com/dyjzfdguj/image/upload/v1739905012/35de9a22-969e-466e-a653-004fcbecd6cc_xtjmpc.webp',
     'https://res.cloudinary.com/dyjzfdguj/image/upload/v1736964098/image0_gdlyva.gif'
   ];
 
@@ -90,6 +91,11 @@ function App() {
         )}
         {randomPhoto === photoArray.length - 1 ? (
           <p>HOLY SHIT IS THAT SOARIN!?</p>
+        ) : (
+          <p>{renderedContent}</p>
+        )}
+        {randomPhoto === photoArray.length - 2 ? (
+          <p>FAKE FISH TUCKER</p>
         ) : (
           <p>{renderedContent}</p>
         )}
