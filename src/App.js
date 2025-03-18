@@ -81,11 +81,6 @@ function App() {
 
   return (
     <div className="App">
-      <p>Mora is gay</p>
-    </div>
-  )
-  /* return (
-    <div className="App">
       <header className="App-header">
         {randomPhoto !== null && (
           <img 
@@ -104,7 +99,7 @@ function App() {
         <p>This post has been fact-checked by true American patriots.</p>
       </header>
     </div>
-  ); */
+  );
 }
 
 export default App;
